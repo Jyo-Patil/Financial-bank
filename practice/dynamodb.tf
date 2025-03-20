@@ -1,35 +1,49 @@
+# Table: Withdrawals
 resource "aws_dynamodb_table" "withdrawals" {
   name         = "Withdrawals"
-  billing_mode = "PAY_PER_REQUEST" # Default settings with on-demand billing
+  billing_mode = "PAY_PER_REQUEST"
 
   # Partition Key
+  hash_key = "username"
+
+  # Attributes
   attribute {
     name = "username"
-    type = "S" # String
+    type = "S"
   }
 
-  # Additional Attributes
   attribute {
     name = "accountnumber"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "date"
-    type = "S" # String
+    type = "S"
   }
 
   attribute {
     name = "withdrawlamount"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "withdrawltype"
-    type = "S" # String
+    type = "S"
   }
 
-  hash_key = "username"
+  # Global Secondary Index (GSI)
+  global_secondary_index {
+    name               = "accountnumber-index"
+    hash_key           = "accountnumber"
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "withdrawltype-index"
+    hash_key           = "withdrawltype"
+    projection_type    = "ALL"
+  }
 
   tags = {
     Name        = "Withdrawals"
@@ -43,33 +57,46 @@ resource "aws_dynamodb_table" "deposits" {
   billing_mode = "PAY_PER_REQUEST"
 
   # Partition Key
+  hash_key = "username"
+
+  # Attributes
   attribute {
     name = "username"
-    type = "S" # String
+    type = "S"
   }
 
-  # Additional Attributes
   attribute {
     name = "accountnumber"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "date"
-    type = "S" # String
+    type = "S"
   }
 
   attribute {
     name = "depositamount"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "deposittype"
-    type = "S" # String
+    type = "S"
   }
 
-  hash_key = "username"
+  # Global Secondary Index (GSI)
+  global_secondary_index {
+    name               = "deposittype-index"
+    hash_key           = "deposittype"
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "accountnumber-index"
+    hash_key           = "accountnumber"
+    projection_type    = "ALL"
+  }
 
   tags = {
     Name        = "Deposits"
@@ -83,38 +110,51 @@ resource "aws_dynamodb_table" "customers" {
   billing_mode = "PAY_PER_REQUEST"
 
   # Partition Key
+  hash_key = "username"
+
+  # Attributes
   attribute {
     name = "username"
-    type = "S" # String
+    type = "S"
   }
 
-  # Additional Attributes
   attribute {
     name = "accountnumber"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "balance"
-    type = "N" # Number
+    type = "N"
   }
 
   attribute {
     name = "branch"
-    type = "S" # String
+    type = "S"
   }
 
   attribute {
     name = "password"
-    type = "S" # String
+    type = "S"
   }
 
   attribute {
     name = "phonenumber"
-    type = "N" # Number
+    type = "N"
   }
 
-  hash_key = "username"
+  # Global Secondary Index (GSI)
+  global_secondary_index {
+    name               = "accountnumber-index"
+    hash_key           = "accountnumber"
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "phonenumber-index"
+    hash_key           = "phonenumber"
+    projection_type    = "ALL"
+  }
 
   tags = {
     Name        = "Customers"
