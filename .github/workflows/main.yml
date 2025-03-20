@@ -1,45 +1,45 @@
-# name: build and deploy
+name: build and deploy
 
-# on:
-#   push:
-#     branches:
-#       - "develop"
-#       - "main"
+on:
+  push:
+    branches:
+      - "develop"
+      - "main"
 
-# jobs:
-#   build:
+jobs:
+  build:
     
-#     name: Build Image
-#     runs-on: ubuntu-latest
+    name: Build Image
+    runs-on: ubuntu-latest
 
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
 
-#     - name: Check out code
-#       uses: actions/checkout@v2
-#     - name: Install kubectl
-#       uses: azure/setup-kubectl@v2.0
-#       with:
-#         version: 'v1.24.0' # default is latest stable
-#       id: install  
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v2.0
+      with:
+        version: 'v1.24.0' # default is latest stable
+      id: install  
     
-#     - name: Test with Checkov
-#       id: checkov
-#       uses: bridgecrewio/checkov-action@master
-#       with:
-#           directory: EKS
-#           framework: terraform 
-#           soft_fail: true
-#     - name: Configure AWS credentials
-#       uses: aws-actions/configure-aws-credentials@v1
-#       with:
-#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         aws-region: ${{ secrets.REGION }}
-#     - name: terraform initialization
-#       run: cd EKS && terraform init 
-#     - name: terraform deployment
-#       run: cd EKS && terraform apply -auto-approve        
+    - name: Test with Checkov
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+          directory: EKS
+          framework: terraform 
+          soft_fail: true
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.REGION }}
+    - name: terraform initialization
+      run: cd practice && terraform init 
+    - name: terraform deployment
+      run: cd practice && terraform apply -auto-approve        
 
     
 #     - name: Login to Amazon ECR
