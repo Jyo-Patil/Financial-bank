@@ -17,6 +17,10 @@ jobs:
 
     - name: Check out code
       uses: actions/checkout@v2
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+         terraform_version: latest   
     - name: Install kubectl
       uses: azure/setup-kubectl@v2.0
       with:
