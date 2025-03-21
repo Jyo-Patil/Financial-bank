@@ -28,8 +28,17 @@ RUN npm install -g serve
 EXPOSE 4001 
 
 # Set environment variables for AWS credentials 
+# Use build arguments for sensitive credentials
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_REGION
 
-COPY .env ./backend/.env ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} ENV AWS_REGION=${AWS_REGION} 
+# Set environment variables using build arguments
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} 
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} 
+ENV AWS_REGION=${AWS_REGION}
+
+# COPY .env ./backend/.env ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} ENV AWS_REGION=${AWS_REGION} 
 
 # Start the backend and frontend 
 CMD ["sh", "-c", "cd backend && node server.mjs & cd ../frontend && serve -s build -l 3000"]
