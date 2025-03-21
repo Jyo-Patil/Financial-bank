@@ -81,7 +81,7 @@ jobs:
     - name: Helm Template
       run: |
          cd helm-chart
-         helm template helm-chart/templates --values charts/values.yaml
+         helm template helm-chart/templates --values helm-chart/values.yaml
    
     - name: Deploy helm to eks
       run: |
