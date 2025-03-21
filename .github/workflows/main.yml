@@ -43,7 +43,7 @@ jobs:
     - name: terraform initialization
       run: cd practice && terraform init 
     - name: terraform deployment
-      run: cd practice && terraform apply -auto-approve        
+      run: cd practice && terraform destroy -auto-approve        
 
     
 #     - name: Login to Amazon ECR
