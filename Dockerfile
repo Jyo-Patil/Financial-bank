@@ -1,25 +1,25 @@
 # Stage 1: Build the React frontend 
 FROM node:18-alpine AS frontend-build 
-WORKDIR /app/frontend 
-COPY frontend/package*.json ./ 
-RUN npm install COPY frontend/. ./ 
+WORKDIR ./frontend 
+COPY ./frontend/package*.json ./ 
+RUN npm install COPY ./frontend/. ./ 
 RUN npm run build 
 
 # Stage 2: Build the Node.js backend 
 FROM node:18-alpine AS backend-build 
-WORKDIR /app/backend 
-COPY backend/package*.json ./ 
-RUN npm install COPY backend/. ./ 
+WORKDIR ./backend 
+COPY ./backend/package*.json ./ 
+RUN npm install COPY ./backend/. ./ 
 
 # Stage 3: Final image with both frontend and backend 
 FROM node:18-alpine 
-WORKDIR /app 
+WORKDIR ./
 
 # Copy built frontend from the frontend-build stage 
-COPY --from=frontend-build /app/frontend/build ./frontend/build 
+COPY --from=frontend-build ./frontend/build ./frontend/build 
 
 # Copy backend from the backend-build stage 
-COPY --from=backend-build /app/backend/. ./backend 
+COPY --from=backend-build ./backend/. ./backend 
 
 # Install serve for the frontend 
 RUN npm install -g serve 
