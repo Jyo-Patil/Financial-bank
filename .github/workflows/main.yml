@@ -82,8 +82,7 @@ jobs:
       run: |
         pwd
         ls -la
-        #  cd charts
-        #  helm template charts/templates --values charts/values.yaml
+        helm template charts/templates --values charts/values.yaml
    
     - name: Deploy helm to eks
       run: |
