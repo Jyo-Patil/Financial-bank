@@ -80,8 +80,8 @@ jobs:
     
     - name: Helm Template
       run: |
-        cd bankapp-helm-chart
-        helm template bankapp-helm-chart/templates --values bankapp-helm-chart/values.yaml
+        cd charts
+        helm template charts/templates --values charts/values.yaml
    
     - name: Deploy helm to eks
       run: |
