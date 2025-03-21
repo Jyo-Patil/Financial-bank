@@ -4,7 +4,7 @@ resource "aws_dynamodb_table_item" "Customers" {
 
   item = <<ITEM
 {
-  "exampleHashKey": {"S": "username"},
+  "username": {"S": "adi"},
   "accountnumber": {"N": "11111"},
   "balance": {"N": "22222"},
   "branch": {"S": "bgm"},
