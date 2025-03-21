@@ -1,0 +1,12 @@
+# Default values for webapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 10
+
+image:
+  repository: 014498667520.dkr.ecr.us-east-1.amazonaws.com/bankapp:latest
+  pullPolicy: Always
+
+application:
+  name: bankapp

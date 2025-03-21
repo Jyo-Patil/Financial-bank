@@ -1,5 +1,5 @@
 /*resource "aws_ecr_repository" "foo" {
-  name                 = "ecr-demo"
+  name                 = "bankapp"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
