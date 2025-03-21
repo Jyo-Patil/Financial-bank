@@ -45,7 +45,7 @@ jobs:
     - name: terraform plan
       run: cd Infra && terraform plan 
     - name: terraform deployment
-      run: cd practice && terraform apply -auto-approve        
+      run: cd Infra && terraform apply -auto-approve        
 
     
     - name: Login to Amazon ECR
