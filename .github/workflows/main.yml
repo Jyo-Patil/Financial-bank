@@ -80,8 +80,10 @@ jobs:
     
     - name: Helm Template
       run: |
-         cd charts
-         helm template charts/templates --values charts/values.yaml
+        pwd
+        ls -la
+        #  cd charts
+        #  helm template charts/templates --values charts/values.yaml
    
     - name: Deploy helm to eks
       run: |
