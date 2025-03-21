@@ -2,14 +2,16 @@
 FROM node:18-alpine AS frontend-build 
 WORKDIR ./frontend 
 COPY ./frontend/package*.json ./ 
-RUN npm install COPY ./frontend/. ./ 
+RUN npm install 
+COPY ./frontend/. ./ 
 RUN npm run build 
 
 # Stage 2: Build the Node.js backend 
 FROM node:18-alpine AS backend-build 
 WORKDIR ./backend 
 COPY ./backend/package*.json ./ 
-RUN npm install COPY ./backend/. ./ 
+RUN npm install 
+COPY ./backend/. ./ 
 
 # Stage 3: Final image with both frontend and backend 
 FROM node:18-alpine 
