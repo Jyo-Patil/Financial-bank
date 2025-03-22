@@ -84,7 +84,7 @@ jobs:
     - name: Helm Template
       run: |
         cd bank-app
-        helm repo update bankapp-helm-chart
+        # helm repo update bankapp-helm-chart
         helm template bank-app/templates --values bank-app/values.yaml
    
     - name: Deploy helm to eks
@@ -94,7 +94,7 @@ jobs:
           export AWS_REGION="${{ secrets.REGION }}"
           aws eks --region us-east-1 update-kubeconfig --name practice-cluster --role-arn arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
           kubectl config use-context arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
-          helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values charts/values.yaml ${HELM_RELEASE_NAME}-demo ./charts/${APP_NAME} --set image.tag=latest
+          helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values bank-app/values.yaml ${HELM_RELEASE_NAME}-demo ./bank-app/${APP_NAME} --set image.tag=latest
           
    
 
