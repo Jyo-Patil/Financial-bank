@@ -81,11 +81,11 @@ jobs:
         aws eks update-kubeconfig --name practice-cluster --region us-east-1
     
     
-    - name: Helm Template
-      run: |
-        cd bank-app
-        helm repo update
-        helm template bank-app/templates --values bank-app/values.yaml
+    # - name: Helm Template
+    #   run: |
+    #     cd bank-app
+    #     helm repo update
+    #     helm template bank-app/templates --values bank-app/values.yaml
    
     - name: Deploy helm to eks
       run: |
@@ -94,8 +94,11 @@ jobs:
           export AWS_REGION="${{ secrets.REGION }}"
           aws eks --region us-east-1 update-kubeconfig --name practice-cluster --role-arn arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
           kubectl config use-context arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
-          helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values bank-app/values.yaml ${HELM_RELEASE_NAME}-demo ./bank-app/${APP_NAME} --set image.tag=latest
-          
+          # helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values bank-app/values.yaml ${HELM_RELEASE_NAME}-demo ./bank-app/${APP_NAME} --set image.tag=latest
+          helm upgrade --install bank-app . \
+           --set image.repository=014498667520.dkr.ecr.us-east-1.amazonaws.com/bankapp \
+           --set image.tag=latest \
+           --namespace default
    
 
     # - name: Send mail
