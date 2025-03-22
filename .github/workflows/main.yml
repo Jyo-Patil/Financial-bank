@@ -45,7 +45,7 @@ jobs:
     - name: terraform plan
       run: cd Infra && terraform plan 
     - name: terraform deployment
-      run: cd Infra && terraform destroy -auto-approve        
+      run: cd Infra && terraform apply -auto-approve        
 
     
     - name: Login to Amazon ECR
@@ -80,8 +80,8 @@ jobs:
     
     - name: Helm Template
       run: |
-        cd charts
-        helm template charts/templates --values charts/values.yaml
+        cd bankapp-helm-chart
+        helm template bankapp-helm-chart/templates --values bankapp-helm-chart/values.yaml
    
     - name: Deploy helm to eks
       run: |
