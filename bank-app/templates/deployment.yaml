@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bank-app
+  name: {{.Values.application.name}}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: bank-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bank-app
+    spec:
+      containers:
+      - image: {{.Values.image.repository}}
+        name: bank-app
+        imagePullPolicy: {{.Values.image.pullPolicy}}
+        resources: {}
+        ports:
+          - containerPort: 80 
+status: {}

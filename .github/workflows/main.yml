@@ -83,10 +83,9 @@ jobs:
     
     - name: Helm Template
       run: |
-        cd bankapp-helm-chart
-        helm init
-        helm repo update
-        helm template bankapp-helm-chart/templates --values bankapp-helm-chart/values.yaml
+        cd bank-app
+        helm repo update bankapp-helm-chart
+        helm template bank-app/templates --values bank-app/values.yaml
    
     - name: Deploy helm to eks
       run: |
