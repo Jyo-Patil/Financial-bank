@@ -76,29 +76,34 @@ jobs:
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Update kube config
+      id: kube-config
       run: 
         
         aws eks update-kubeconfig --name practice-cluster --region us-east-1
     
     
-    # - name: Helm Template
-    #   run: |
-    #     cd bank-app
-    #     helm repo update
-    #     helm template bank-app/templates --values bank-app/values.yaml
-   
-    - name: Deploy helm to eks
+    - name: Helm Template
+      env:
+          KUBECONFIG: ${{ steps.kube-config.outputs.kubeconfig }}
       run: |
-          export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
-          export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          export AWS_REGION="${{ secrets.REGION }}"
-          aws eks --region us-east-1 update-kubeconfig --name practice-cluster --role-arn arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
-          kubectl config use-context arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
-          # helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values bank-app/values.yaml ${HELM_RELEASE_NAME}-demo ./bank-app/${APP_NAME} --set image.tag=latest
-          helm upgrade --install bank-app . \
-           --set image.repository=014498667520.dkr.ecr.us-east-1.amazonaws.com/bankapp \
-           --set image.tag=latest \
-           --namespace default
+             cd bank-app
+             helm upgrade --install bank-app . \
+              --set image.repository=014498667520.dkr.ecr.us-east-1.amazonaws.com/bankapp \
+              --set image.tag=latest \
+              --namespace default
+   
+    # - name: Deploy helm to eks
+    #   run: |
+    #       export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
+    #       export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+    #       export AWS_REGION="${{ secrets.REGION }}"
+    #       aws eks --region us-east-1 update-kubeconfig --name practice-cluster --role-arn arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
+    #       kubectl config use-context arn:aws:eks:us-east-1:014498667520:cluster/practice-cluster
+    #       # helm upgrade --install --namespace ${KUBERNETES_NAMESPACE} --values bank-app/values.yaml ${HELM_RELEASE_NAME}-demo ./bank-app/${APP_NAME} --set image.tag=latest
+    #       helm upgrade --install bank-app . \
+    #        --set image.repository=014498667520.dkr.ecr.us-east-1.amazonaws.com/bankapp \
+    #        --set image.tag=latest \
+    #        --namespace default
    
 
     # - name: Send mail
