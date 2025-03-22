@@ -9,4 +9,4 @@ image:
   pullPolicy: Always
 
 application:
-  name: bankapp
+  name: bankapp-helm-chart
