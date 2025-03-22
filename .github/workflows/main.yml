@@ -84,7 +84,7 @@ jobs:
     - name: Helm Template
       run: |
         cd bankapp-helm-chart
-        helm init
+        # helm init
         helm repo update
         helm template bankapp-helm-chart/templates --values bankapp-helm-chart/values.yaml
    
