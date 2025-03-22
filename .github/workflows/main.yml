@@ -27,6 +27,9 @@ jobs:
         version: 'v1.24.0' # default is latest stable
       id: install  
     
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+
     - name: Test with Checkov
       id: checkov
       uses: bridgecrewio/checkov-action@master
@@ -81,7 +84,6 @@ jobs:
     - name: Helm Template
       run: |
         cd bankapp-helm-chart
-        helm --version
         helm template bankapp-helm-chart/templates --values bankapp-helm-chart/values.yaml
    
     - name: Deploy helm to eks
