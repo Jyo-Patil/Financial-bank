@@ -69,7 +69,7 @@ ITEM
 }
 
 resource "aws_dynamodb_table" "Withdrawals" {
-  name           = "Withdrawltype"
+  name           = "Withdrawals"
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "username"
