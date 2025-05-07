@@ -44,7 +44,7 @@ resource "aws_subnet" "private" {
 }
 
 # Internet Gateway
-resource "aws_internet_gateway" "this" {
+/*resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
   tags = {
@@ -52,11 +52,11 @@ resource "aws_internet_gateway" "this" {
   }
 
   depends_on = [aws_vpc.this]
-}
+}*/
 
 # Route Table(s)
 # Route the public subnet traffic through the IGW
-resource "aws_route_table" "main" {
+/*resource "aws_route_table" "main" {
   vpc_id = aws_vpc.this.id
 
   route {
@@ -67,41 +67,41 @@ resource "aws_route_table" "main" {
   tags = {
     Name = "${var.project}-Default-rt"
   }
-}
+}*/
 
 # Route table and subnet associations
-resource "aws_route_table_association" "internet_access" {
+/*resource "aws_route_table_association" "internet_access" {
   count = var.availability_zones_count
 
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.main.id
-}
+}*/
 
 # NAT Elastic IP
-resource "aws_eip" "main" {
+/*resource "aws_eip" "main" {
   vpc = true
 
   tags = {
     Name = "${var.project}-ngw-ip"
   }
-}
+}*/
 
 # NAT Gateway
-resource "aws_nat_gateway" "main" {
+/*resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.main.id
   subnet_id     = aws_subnet.public[0].id
 
   tags = {
     Name = "${var.project}-ngw"
   }
-}
+}*/
 
 # Add route to route table
-resource "aws_route" "main" {
+/*resource "aws_route" "main" {
   route_table_id         = aws_vpc.this.default_route_table_id
   nat_gateway_id         = aws_nat_gateway.main.id
   destination_cidr_block = "0.0.0.0/0"
-}
+}*/
 
 # Security group for public subnet
 resource "aws_security_group" "public_sg" {
