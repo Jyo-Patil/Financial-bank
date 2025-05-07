@@ -44,11 +44,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.REGION }}
     - name: terraform initialization
-      run: cd Infra/ec2 && terraform init
+      run: cd Infra && terraform init
     - name: terraform plan
-      run: cd Infra/ec2 && terraform plan 
+      run: cd Infra && terraform plan 
     - name: terraform apply
-      run: cd Infra/ec2 && terraform apply -auto-approve        
+      run: cd Infra && terraform apply -auto-approve        
 
     
     # - name: Login to Amazon ECR
